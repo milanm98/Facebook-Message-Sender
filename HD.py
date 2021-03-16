@@ -6,12 +6,26 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 import time
-import pathlib
 
-emailInput = str(input("email :"))
-passwordInput = str(input("password :"))
-contactInput = str(input("send to :"))
-messageContent = str(input("your message :"))
+try:
+    f = open("assets.txt")
+    file = f.readlines()
+    emailInput = file[0]
+    passwordInput = file[1]
+    contactInput = str(input("send to :"))
+    messageContent = str(input("your message :"))
+
+except IOError:
+    with open("assets.txt", "w") as f:
+        emailInput = str(input("email :"))
+        passwordInput = str(input("password :"))
+        contactInput = str(input("send to :"))
+        messageContent = str(input("your message :"))
+
+        f.writelines(emailInput + " \n")
+        f.writelines(passwordInput + " \n")
+
+        f.close()
 
 chrome_options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2}
