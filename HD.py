@@ -12,6 +12,10 @@ try:
     file = f.readlines()
     emailInput = file[0]
     passwordInput = file[1]
+    
+    emailInput = emailInput.strip()
+    passwordInput = passwordInput.strip()
+
     contactInput = str(input("send to :"))
     messageContent = str(input("your message :"))
 
@@ -51,19 +55,21 @@ password.send_keys(passwordInput)
 submit = WebDriverWait(driver, delay*2).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[1]/form/div[2]/button")))
 submit.click()
 
-messanger = WebDriverWait(driver, delay*5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[1]/div[2]/span/div/div[1]"))).click()
-
-search = WebDriverWait(driver, delay*5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div/div[1]/div/div/div/label")))
-search.click()
+search = WebDriverWait(driver, delay*5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div/div/div/label/input")))
+driver.execute_script("arguments[0].click();", search)
 search.send_keys(contactInput)
 
-contact = WebDriverWait(driver, delay*5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[2]/div/div/div[1]/div[1]/div/div/div[1]/ul/li[1]/ul/li[1]/div/a/div")))
-contact.click()
+profile = WebDriverWait(driver, delay*5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[2]/ul/li[1]/div/a/div/div[2]/div")))
+profile.click()
 
-message = WebDriverWait(driver, delay*5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[5]/div/div[1]/div[1]/div[1]/div/div/div/div/div/div/div[2]/div/div[2]/form/div/div[3]/div[2]/div[1]/div/div/div/div/div[2]/div/div/div/div")))
-message.click()
-message.send_keys(messageContent)
-message.send_keys(Keys.RETURN)
+openMessageBox = WebDriverWait(driver, delay*7).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div/div[3]/div/div/div/div[2]/div/div/div/div[1]/div/div/div/span/div[2]/span/span")))
+openMessageBox.click()
+
+messageBox = WebDriverWait(driver, delay*7).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[5]/div/div[1]/div[1]/div[1]/div/div/div/div/div/div/div[2]/div/div[2]/form/div/div[3]/div[2]/div[1]/div/div/div/div/div[2]/div/div/div/div")))
+messageBox.click()
+messageBox.send_keys(messageContent)
+time.sleep(3)
+messageBox.send_keys(Keys.RETURN)
 
 time.sleep(5)
 driver.close()
